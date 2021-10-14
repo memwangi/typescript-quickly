@@ -1,3 +1,27 @@
+// Creating method decorators
+class Trade {
+	@logTrade
+	placeOrder(stockname: string, quantity: number, operation:string, traderID:number) {
+
+	}
+}
+
+function logTrade(target: any, key: any, descriptor: any) {
+	const originalCode = descriptor.value;
+
+	descriptor.value = function() {
+		console.log(`Invoke ${key} providing:`, arguments);
+		return originalCode.apply(this, arguments);
+	}
+
+	return descriptor;
+}
+
+const trade = new Trade();
+
+trade.placeOrder("IBM", 200, "BUY", 637232);
+
+/**
 //Mixins
 
 type constructorMixin = { new (...args: any[]): {} };
@@ -28,6 +52,8 @@ function UseSalutation(salutation: String) {
 const grt = new Greeter("Bob Marley");
 
 grt.sayHello();
+
+*/
 
 /**
  * 
